@@ -27,7 +27,7 @@
         </div>
         <div class="option" @click="setVoteWatching">
           <font-awesome-icon
-              :icon="[
+            :icon="[
               'fas',
               session.isVoteWatchingAllowed ? 'check-square' : 'square'
             ]"
@@ -118,26 +118,19 @@ export default {
 
       if (this.session.isVoteHistoryAllowed) {
         // Enable vote watching if vote history is re-enabled.
-        this.$store.commit(
-            "session/setVoteWatchingAllowed",
-            true
-        );
+        this.$store.commit("session/setVoteWatchingAllowed", true);
       }
     },
     setVoteWatching() {
       this.$store.commit(
-          "session/setVoteWatchingAllowed",
-          !this.session.isVoteWatchingAllowed
+        "session/setVoteWatchingAllowed",
+        !this.session.isVoteWatchingAllowed
       );
 
       if (!this.session.isVoteWatchingAllowed) {
         // Disable vote history if votes are hidden.
-        this.$store.commit(
-            "session/setVoteHistoryAllowed",
-            false
-        );
+        this.$store.commit("session/setVoteHistoryAllowed", false);
       }
-
     },
     ...mapMutations(["toggleModal"])
   }

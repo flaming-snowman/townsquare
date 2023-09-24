@@ -22,7 +22,13 @@
       <em v-else>(majority is {{ Math.ceil(players.length / 2) }})</em>
 
       <template v-if="!session.isSpectator">
-        <div v-if="session.isVoteWatchingAllowed && !session.isVoteInProgress && session.lockedVote < 1">
+        <div
+          v-if="
+            session.isVoteWatchingAllowed &&
+              !session.isVoteInProgress &&
+              session.lockedVote < 1
+          "
+        >
           Time per player:
           <font-awesome-icon
             @mousedown.prevent="setVotingSpeed(-500)"

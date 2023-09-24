@@ -360,7 +360,10 @@ class LiveSession {
     if (!isLightweight) {
       this._store.commit("toggleNight", !!isNight);
       this._store.commit("session/setVoteHistoryAllowed", isVoteHistoryAllowed);
-      this._store.commit("session/setVoteWatchingAllowed", isVoteWatchingAllowed);
+      this._store.commit(
+        "session/setVoteWatchingAllowed",
+        isVoteWatchingAllowed
+      );
       this._store.commit("session/nomination", {
         nomination,
         votes,
@@ -727,8 +730,8 @@ class LiveSession {
   setVoteWatchingAllowed() {
     if (this._isSpectator) return;
     this._send(
-        "isVoteWatchingAllowed",
-        this._store.state.session.isVoteWatchingAllowed
+      "isVoteWatchingAllowed",
+      this._store.state.session.isVoteWatchingAllowed
     );
   }
 
