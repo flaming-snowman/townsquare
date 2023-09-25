@@ -81,8 +81,26 @@
       </ul>
     </div>
 
+    <div
+      class="addinfo"
+      :class="{ closed: !isInfoOpen }"
+      v-if="players.length && !session.isSpectator"
+    >
+      <h3>
+        <span>Show info</span>
+        <font-awesome-icon icon="times-circle" @click.stop="toggleInfo" />
+        <font-awesome-icon icon="plus-circle" @click.stop="toggleInfo" />
+      </h3>
+      <ul>
+        <li @click="openInfoModal()">
+          <Token :role="info[0]"></Token>
+        </li>
+      </ul>
+    </div>
+
     <ReminderModal :player-index="selectedPlayer"></ReminderModal>
     <RoleModal :player-index="selectedPlayer"></RoleModal>
+    <InfoModal />
   </div>
 </template>
 
@@ -92,18 +110,20 @@ import Player from "./Player";
 import Token from "./Token";
 import ReminderModal from "./modals/ReminderModal";
 import RoleModal from "./modals/RoleModal";
+import InfoModal from "./modals/InfoModal";
 
 export default {
   components: {
     Player,
     Token,
     RoleModal,
+    InfoModal,
     ReminderModal
   },
   computed: {
     ...mapGetters({ nightOrder: "players/nightOrder" }),
     ...mapState(["grimoire", "roles", "session"]),
-    ...mapState("players", ["players", "bluffs", "fabled"])
+    ...mapState("players", ["players", "bluffs", "fabled", "info"])
   },
   data() {
     return {
@@ -113,7 +133,8 @@ export default {
       move: -1,
       nominate: -1,
       isBluffsOpen: true,
-      isFabledOpen: true
+      isFabledOpen: true,
+      isInfoOpen: true
     };
   },
   methods: {
@@ -122,6 +143,9 @@ export default {
     },
     toggleFabled() {
       this.isFabledOpen = !this.isFabledOpen;
+    },
+    toggleInfo() {
+      this.isInfoOpen = !this.isInfoOpen;
     },
     removeFabled(index) {
       if (this.session.isSpectator) return;
@@ -150,6 +174,9 @@ export default {
         return;
       this.selectedPlayer = playerIndex;
       this.$store.commit("toggleModal", "role");
+    },
+    openInfoModal() {
+      this.$store.commit("toggleModal", "info");
     },
     removePlayer(playerIndex) {
       if (this.session.isSpectator || this.session.lockedVote) return;
@@ -396,13 +423,17 @@ export default {
 
 /***** Demon bluffs / Fabled *******/
 #townsquare > .bluffs,
-#townsquare > .fabled {
+#townsquare > .fabled,
+#townsquare > .addinfo {
   position: absolute;
   &.bluffs {
     bottom: 10px;
   }
   &.fabled {
     top: 10px;
+  }
+  &.addinfo {
+    bottom: 10px;
   }
   left: 10px;
   background: rgba(0, 0, 0, 0.5);
@@ -485,9 +516,15 @@ export default {
   }
 }
 
-#townsquare.public > .bluffs {
+#townsquare.public > .bluffs,
+#townsquare > .addinfo {
   opacity: 0;
   transform: scale(0.1);
+}
+
+#townsquare.public > .addinfo {
+  opacity: 1;
+  transform: scale(1.3);
 }
 
 .fabled ul li .token:before {

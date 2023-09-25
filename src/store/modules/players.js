@@ -11,7 +11,8 @@ const NEWPLAYER = {
 const state = () => ({
   players: [],
   fabled: [],
-  bluffs: []
+  bluffs: [],
+  info: []
 });
 
 const getters = {
@@ -98,6 +99,7 @@ const mutations = {
     state.players = [];
     state.bluffs = [];
     state.fabled = [];
+    state.info = [];
   },
   set(state, players = []) {
     state.players = players;
@@ -153,6 +155,9 @@ const mutations = {
         state.fabled = fabled;
       }
     }
+  },
+  setInfo(state, { role } = {}) {
+    state.info.splice(0, 1, role);
   }
 };
 
