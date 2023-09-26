@@ -31,6 +31,7 @@
     <EditionModal />
     <FabledModal />
     <RolesModal />
+    <InfoModal />
     <ReferenceModal />
     <NightOrderModal />
     <VoteHistoryModal />
@@ -47,6 +48,7 @@ import TownSquare from "./components/TownSquare";
 import TownInfo from "./components/TownInfo";
 import Menu from "./components/Menu";
 import RolesModal from "./components/modals/RolesModal";
+import InfoModal from "@/components/modals/InfoModal";
 import EditionModal from "./components/modals/EditionModal";
 import Intro from "./components/Intro";
 import ReferenceModal from "./components/modals/ReferenceModal";
@@ -71,6 +73,7 @@ export default {
     Menu,
     EditionModal,
     RolesModal,
+    InfoModal,
     Gradients
   },
   computed: {

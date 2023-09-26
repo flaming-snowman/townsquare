@@ -81,8 +81,48 @@
       </ul>
     </div>
 
+    <div
+      class="addinfo"
+      :class="{ closed: !isInfoOpen, biginfo: isMaximized }"
+      v-if="players.length && !session.isSpectator"
+    >
+      <h3>
+        <font-awesome-icon
+          @click="minInfo"
+          class="max-button"
+          :icon="['fas', isMaximized ? 'window-minimize' : 'window-maximize']"
+        />
+        <font-awesome-icon
+          v-if="isMaximized"
+          @click="exchangeMode"
+          icon="exchange-alt"
+        />
+        <span v-if="!isMaximized">Show info</span>
+        <span v-if="isMaximized"></span>
+        <font-awesome-icon icon="times-circle" @click.stop="toggleInfo" />
+        <font-awesome-icon icon="plus-circle" @click.stop="toggleInfo" />
+      </h3>
+      <h3 class="textinfo" v-if="isMaximized">
+        <font-awesome-icon
+          icon="arrow-alt-circle-left"
+          @click.stop="incText(-1)"
+        />
+        <span>{{ getText() }}</span>
+        <font-awesome-icon
+          icon="arrow-alt-circle-right"
+          @click.stop="incText(1)"
+        />
+      </h3>
+      <ul v-if="!pmode">
+        <li @click="openInfoModal()">
+          <Token :role="info[0]"></Token>
+        </li>
+      </ul>
+    </div>
+
     <ReminderModal :player-index="selectedPlayer"></ReminderModal>
     <RoleModal :player-index="selectedPlayer"></RoleModal>
+    <InfoModal />
   </div>
 </template>
 
@@ -92,18 +132,20 @@ import Player from "./Player";
 import Token from "./Token";
 import ReminderModal from "./modals/ReminderModal";
 import RoleModal from "./modals/RoleModal";
+import InfoModal from "./modals/InfoModal";
 
 export default {
   components: {
     Player,
     Token,
     RoleModal,
+    InfoModal,
     ReminderModal
   },
   computed: {
     ...mapGetters({ nightOrder: "players/nightOrder" }),
     ...mapState(["grimoire", "roles", "session"]),
-    ...mapState("players", ["players", "bluffs", "fabled"])
+    ...mapState("players", ["players", "bluffs", "fabled", "info"])
   },
   data() {
     return {
@@ -113,15 +155,60 @@ export default {
       move: -1,
       nominate: -1,
       isBluffsOpen: true,
-      isFabledOpen: true
+      isFabledOpen: true,
+      isInfoOpen: true,
+      isMaximized: false,
+      curphrase: 0,
+      pmode: 0,
+      phrases: [
+        [
+          "You are",
+          "You learn",
+          "This character selected you",
+          "This player is",
+          "Choose a character"
+        ],
+        [
+          "This is the demon",
+          "These are your minions",
+          "Did you vote today?",
+          "Did you nominate today?",
+          "What are you bluffing?"
+        ]
+      ]
     };
   },
   methods: {
+    incText(num) {
+      const len = this.phrases[this.pmode].length;
+      this.curphrase = (this.curphrase + num + len) % len;
+    },
+    getText() {
+      return this.phrases[this.pmode][this.curphrase];
+    },
+    exchangeMode() {
+      this.pmode = 1 - this.pmode;
+      this.curphrase = 0;
+      if (this.pmode === 0) {
+        this.$store.commit("players/setInfo", {});
+      }
+    },
     toggleBluffs() {
       this.isBluffsOpen = !this.isBluffsOpen;
     },
     toggleFabled() {
       this.isFabledOpen = !this.isFabledOpen;
+    },
+    toggleInfo() {
+      if (this.isMaximized) return;
+      this.isInfoOpen = !this.isInfoOpen;
+      this.$store.commit("players/setInfo", {});
+    },
+    minInfo() {
+      this.isMaximized = !this.isMaximized;
+      if (!this.isMaximized) {
+        this.$store.commit("players/setInfo", {});
+      }
     },
     removeFabled(index) {
       if (this.session.isSpectator) return;
@@ -150,6 +237,9 @@ export default {
         return;
       this.selectedPlayer = playerIndex;
       this.$store.commit("toggleModal", "role");
+    },
+    openInfoModal() {
+      this.$store.commit("toggleModal", "info");
     },
     removePlayer(playerIndex) {
       if (this.session.isSpectator || this.session.lockedVote) return;
@@ -396,13 +486,18 @@ export default {
 
 /***** Demon bluffs / Fabled *******/
 #townsquare > .bluffs,
-#townsquare > .fabled {
+#townsquare > .fabled,
+#townsquare > .addinfo {
   position: absolute;
   &.bluffs {
     bottom: 10px;
   }
   &.fabled {
     top: 10px;
+  }
+  &.addinfo {
+    bottom: 10px;
+    transition: none;
   }
   left: 10px;
   background: rgba(0, 0, 0, 0.5);
@@ -441,10 +536,19 @@ export default {
       flex-grow: 0;
       &.fa-times-circle {
         margin-left: 1vh;
+        margin-right: 1vh;
       }
       &.fa-plus-circle {
         margin-left: 1vh;
+        margin-right: 1vh;
         display: none;
+      }
+      &.max-button {
+        margin-left: 1vh;
+        margin-right: 1.5vh;
+      }
+      &.fa-exchange-alt {
+        margin-left: 2vh;
       }
       &:hover path {
         fill: url(#demon);
@@ -469,6 +573,9 @@ export default {
     svg.fa-times-circle {
       display: none;
     }
+    svg.max-button {
+      display: none;
+    }
     svg.fa-plus-circle {
       display: block;
     }
@@ -483,11 +590,23 @@ export default {
       }
     }
   }
+  &.biginfo {
+    svg.fa-times-circle {
+      opacity: 0;
+      cursor: auto;
+    }
+  }
 }
 
-#townsquare.public > .bluffs {
+#townsquare.public > .bluffs,
+#townsquare > .addinfo {
   opacity: 0;
   transform: scale(0.1);
+}
+
+#townsquare.public > .addinfo {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .fabled ul li .token:before {
@@ -643,5 +762,43 @@ export default {
 
 #townsquare:not(.spectator) .fabled ul li:hover .token:before {
   opacity: 1;
+}
+
+/***** Info box *****/
+#townsquare.public > .biginfo {
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  ul {
+    margin-top: 5vh;
+    transform-origin: top;
+    transform: scale(4);
+  }
+  > .textinfo {
+    margin-top: 10vh;
+    z-index: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(2);
+    > span {
+      width: 25vw;
+      text-align: center;
+      flex-grow: 0;
+      white-space: break-spaces;
+    }
+    > svg {
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
+    }
+    .fa-exchange-alt {
+      bottom: 1vh;
+    }
+  }
 }
 </style>

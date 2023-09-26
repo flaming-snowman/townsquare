@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const faIcons = [
   "AddressCard",
+  "ArrowAltCircleLeft",
+  "ArrowAltCircleRight",
   "BookOpen",
   "BookDead",
   "BroadcastTower",

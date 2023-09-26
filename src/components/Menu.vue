@@ -48,7 +48,7 @@
         <template v-if="tab === 'grimoire'">
           <!-- Grimoire -->
           <li class="headline">Grimoire</li>
-          <li @click="toggleGrimoire" v-if="players.length">
+          <li @click="toggleGrimoireHelper" v-if="players.length">
             <template v-if="!grimoire.isPublic">Hide</template>
             <template v-if="grimoire.isPublic">Show</template>
             <em>[G]</em>
@@ -344,6 +344,10 @@ export default {
       if (this.grimoire.isNight) {
         this.$store.commit("session/setMarkedPlayer", -1);
       }
+    },
+    toggleGrimoireHelper() {
+      this.$store.commit("players/setInfo", {});
+      this.toggleGrimoire();
     },
     ...mapMutations([
       "toggleGrimoire",
