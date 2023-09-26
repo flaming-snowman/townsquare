@@ -42,6 +42,8 @@ export default {
           availableRoles.push(role);
         }
       });
+      availableRoles.push({ id: "good", name: "Good" });
+      availableRoles.push({ id: "evil", name: "Evil" });
       availableRoles.push({});
       return availableRoles;
     },

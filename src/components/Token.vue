@@ -229,7 +229,7 @@ export default {
   }
 
   &:hover .ability {
-    opacity: 1;
+    opacity: 0;
   }
 }
 </style>
