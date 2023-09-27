@@ -1,6 +1,6 @@
 {
  "name": "Clock",
- "display": "standalone",
+ "display": "fullscreen",
  "icons": [
   {
    "src": "android-icon-36x36.png",
