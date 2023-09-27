@@ -58,6 +58,9 @@
             <template v-if="grimoire.isNight">Switch to Day</template>
             <em>[S]</em>
           </li>
+          <li @click="toggleAddRem" v-if="!session.isSpectator">
+            Toggle Reminders
+          </li>
           <li @click="toggleNightOrder" v-if="players.length">
             Night order
             <em>
@@ -338,6 +341,9 @@ export default {
       if (confirm("Are you sure you want to remove all player roles?")) {
         this.$store.dispatch("players/clearRoles");
       }
+    },
+    toggleAddRem() {
+      this.$store.commit("toggleRem");
     },
     toggleNight() {
       this.$store.commit("toggleNight");

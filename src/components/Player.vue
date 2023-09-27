@@ -203,7 +203,11 @@
         <span class="text">{{ reminder.name }}</span>
       </div>
     </template>
-    <div class="reminder add" @click="$emit('trigger', ['openReminderModal'])">
+    <div
+      class="reminder add"
+      v-if="grimoire.showRem"
+      @click="$emit('trigger', ['openReminderModal'])"
+    >
       <span class="icon"></span>
     </div>
     <div class="reminderHoverTarget"></div>

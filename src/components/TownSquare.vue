@@ -475,6 +475,15 @@ export default {
           margin-bottom: -10% + 20% * ($x % $q / $q);
         }
       }
+
+      .reminder {
+        transform: translate(-50%) rotate($rot * -1deg);
+        margin-left: 0;
+      }
+      .reminder.add {
+        transform: translate(-50%) rotate($rot * -1deg);
+        margin-left: 0;
+      }
     }
     $rot: $rot + $angle;
   }
