@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/townsquare/precache-manifest.a74473f3dab7cc8131479013934717d5.js"
+  "/townsquare/precache-manifest.b57be4195b0130a57b05a9fe06ebb471.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "townsquare"});
