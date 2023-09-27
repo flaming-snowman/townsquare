@@ -206,6 +206,8 @@ export default {
     },
     minInfo() {
       this.isMaximized = !this.isMaximized;
+      this.pmode = 0;
+      this.curphrase = 0;
       if (!this.isMaximized) {
         this.$store.commit("players/setInfo", {});
       }
@@ -594,6 +596,11 @@ export default {
     svg.fa-times-circle {
       opacity: 0;
       cursor: auto;
+    }
+    svg.max-button,
+    svg.fa-exchange-alt {
+      margin-top: 10px;
+      margin-left: 2vh;
     }
   }
 }
