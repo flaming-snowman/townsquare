@@ -8,6 +8,7 @@
   .night-order em {
     width: 30px;
     height: 30px;
+    font-size: 75%;
   }
   .fabled .night-order.first span {
     left: 30px;
@@ -61,7 +62,7 @@
 }
 
 // odd aspect ratio
-@media (max-aspect-ratio: 11/7) {
+@media (max-aspect-ratio: 11/8) {
   .bluffs,
   .fabled {
     h3 {
