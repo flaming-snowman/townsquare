@@ -812,7 +812,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/townsquare/img/zombuul.2872fbb3.png"
   },
   {
-    "revision": "ff6a5ed698b54ac1dabe3f0cf370f5d5",
+    "revision": "7f4fecafed4cd53b12a65a5f2521f038",
     "url": "/townsquare/index.html"
   },
   {
