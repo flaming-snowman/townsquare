@@ -117,6 +117,10 @@ export default {
         [
           "Vigormortis High School (Teensyville)",
           "https://gist.githubusercontent.com/bra1n/1f65bd4a999524719d5dabe98c3c2d27/raw/22bbec6bf56a51a7459e5ae41ed47e41971c5445/VigormortisHighSchool.json"
+        ],
+        [
+          "No Greater Joy (Teensyville)",
+          "https://gist.githubusercontent.com/flaming-snowman/c3c8e06bfef879ca8ac81eac03b196dd/raw/bfb949f579d210c5a5ac4a1023b4da5aef6b4848/NoGreaterJoy.json"
         ]
       ]
     };

@@ -107,7 +107,14 @@
           icon="arrow-alt-circle-left"
           @click.stop="incText(-1)"
         />
-        <span>{{ getText() }}</span>
+        <div class="textbox">
+          <span>{{ text }}</span>
+          <font-awesome-icon
+            v-if="pmode === 1 && curphrase === phrases[1].length - 1"
+            icon="pen"
+            @click.stop="customText"
+          />
+        </div>
         <font-awesome-icon
           icon="arrow-alt-circle-right"
           @click.stop="incText(1)"
@@ -158,6 +165,7 @@ export default {
       isFabledOpen: true,
       isInfoOpen: true,
       isMaximized: false,
+      text: "You are",
       curphrase: 0,
       pmode: 0,
       phrases: [
@@ -166,25 +174,34 @@ export default {
           "You learn",
           "This character selected you",
           "This player is",
-          "Choose a character"
+          "Choose a character",
+          "What are you bluffing?"
         ],
         [
           "This is the demon",
           "These are your minions",
           "Did you vote today?",
           "Did you nominate today?",
-          "What are you bluffing?"
+          "Read the character sheet",
+          "Custom"
         ]
-      ]
+      ],
     };
   },
   methods: {
+    updateText() {
+      this.text = this.phrases[this.pmode][this.curphrase];
+    },
     incText(num) {
       const len = this.phrases[this.pmode].length;
       this.curphrase = (this.curphrase + num + len) % len;
+      this.updateText();
     },
-    getText() {
-      return this.phrases[this.pmode][this.curphrase];
+    customText() {
+      const msg = prompt("Enter custom message:");
+      const len = this.phrases[1].length;
+      this.phrases[1][len - 1] = msg ? msg : "Custom";
+      this.updateText();
     },
     exchangeMode() {
       this.pmode = 1 - this.pmode;
@@ -192,6 +209,7 @@ export default {
       if (this.pmode === 0) {
         this.$store.commit("players/setInfo", {});
       }
+      this.updateText();
     },
     toggleBluffs() {
       this.isBluffsOpen = !this.isBluffsOpen;
@@ -211,6 +229,7 @@ export default {
       if (!this.isMaximized) {
         this.$store.commit("players/setInfo", {});
       }
+      this.updateText();
     },
     removeFabled(index) {
       if (this.session.isSpectator) return;
@@ -554,6 +573,10 @@ export default {
         margin-right: 1vh;
         display: none;
       }
+      &.fa-pen {
+        margin-left: 1vh;
+        margin-right: 1vh;
+      }
       &.max-button {
         margin-left: 1vh;
         margin-right: 1.5vh;
@@ -800,11 +823,15 @@ export default {
     align-items: center;
     justify-content: center;
     transform: scale(2);
-    > span {
+    .textbox {
       width: 25vw;
-      text-align: center;
-      flex-grow: 0;
-      white-space: break-spaces;
+      display: flex;
+      align-items: center;
+      > span {
+        text-align: center;
+        flex-grow: 1;
+        white-space: break-spaces;
+      }
     }
     > svg {
       cursor: pointer;
