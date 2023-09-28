@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "14d0cf4a963f44e243ad",
-    "url": "/townsquare/css/app.f57305bd.css"
+    "revision": "33ddd6b67f9f92137acd",
+    "url": "/townsquare/css/app.73fa7ee0.css"
   },
   {
     "revision": "6d21d92298fcf6cf930341d600659596",
@@ -812,12 +812,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/townsquare/img/zombuul.2872fbb3.png"
   },
   {
-    "revision": "a667c1671c63662a8a89b008fdfc2aaa",
+    "revision": "a495bcc403d861cd04767fce8c043647",
     "url": "/townsquare/index.html"
   },
   {
-    "revision": "14d0cf4a963f44e243ad",
-    "url": "/townsquare/js/app.6aad026b.js"
+    "revision": "33ddd6b67f9f92137acd",
+    "url": "/townsquare/js/app.5bc39f6e.js"
   },
   {
     "revision": "87e69d4f680c3caa9367",
