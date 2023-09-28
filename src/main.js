@@ -32,6 +32,7 @@ const faIcons = [
   "Image",
   "Link",
   "MinusCircle",
+  "Pen",
   "PeopleArrows",
   "PlusCircle",
   "Question",
