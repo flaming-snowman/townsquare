@@ -185,7 +185,7 @@ export default {
           "Read the character sheet",
           "Custom"
         ]
-      ],
+      ]
     };
   },
   methods: {
