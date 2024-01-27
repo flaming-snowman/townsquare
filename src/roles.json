@@ -393,6 +393,20 @@
     "setup": false,
     "ability": "You start knowing 2 players that are not the Demon."
   },
+
+  {
+    "id": "shugenja",
+    "name": "Shugenja",
+    "edition": "",
+    "team": "townsfolk",
+    "firstNight": 41,
+    "firstNightReminder": "If the closest evil player is in a clockwise direction, point your finger horizontally in that direction. If the closest evil player is in an anti-clockwise direction, point your finger horizontally in that direction. If the two closest evil players are equidistant, point your finger horizontally in either direction.",
+    "otherNight": 0,
+    "otherNightReminder": "",
+    "reminders": [],
+    "setup": false,
+    "ability": "You start knowing if your closest evil player is clockwise or anti-clockwise. If equidistant, this info is arbitrary."
+  },
   {
     "id": "sailor",
     "name": "Sailor",
@@ -1090,6 +1104,19 @@
     "ability": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbour. [\u22121 Outsider]"
   },
   {
+    "id": "ojo",
+    "name": "Ojo",
+    "edition": "",
+    "team": "demon",
+    "firstNight": 0,
+    "firstNightReminder": "",
+    "otherNight": 32,
+    "otherNightReminder": "The Ojo points to a character on the sheet; if in play, that player dies. If it is not in play, the Storyteller chooses who dies instead.",
+    "reminders": ["Dead"],
+    "setup": false,
+    "ability": "Each night*, choose a character: they die. If they are not in play, the Storyteller chooses who dies."
+  },
+  {
     "id": "vizier",
     "name": "Vizier",
     "edition": "",
@@ -1592,6 +1619,19 @@
     "ability": "If you were the player most responsible for your team losing, you change alignment & win, even if dead."
   },
   {
+    "id": "hatter",
+    "name": "Hatter",
+    "edition": "",
+    "team": "outsider",
+    "firstNight": 0,
+    "firstNightReminder": "",
+    "otherNight": 40,
+    "otherNightReminder": "Wake the Minions and Demon. Each player either shakes their head no or points to another character of the same type as their current character. If a second player would end up with the same character as another player, shake your head no and gesture for them to choose again. Change each player to the character they chose.",
+    "reminders": ["Tea Party Tonight"],
+    "setup": false,
+    "ability": "If you died today or tonight, the Minion & Demon players may choose new Minion & Demon characters to be."
+  },
+  {
     "id": "widow",
     "name": "Widow",
     "edition": "",
@@ -1831,4 +1871,3 @@
     "ability": "Once per day, you may choose to kill an alive neighbour, if your other alive neighbour agrees."
   }
 ]
-
