@@ -12,6 +12,7 @@
     />
     <h3>
       Night Order
+      <br />
       <font-awesome-icon icon="cloud-moon" />
       {{ edition.name || "Custom Script" }}
     </h3>
@@ -41,15 +42,7 @@
             class="icon"
             v-if="role.id"
             :style="{
-              backgroundImage: `url(${
-                role.image && grimoire.isImageOptIn
-                  ? role.image
-                  : require(
-                      '../../assets/icons/' +
-                        (role.imageAlt || role.id) +
-                        '.png',
-                    )
-              })`,
+              backgroundImage: `url(${getImage(role)})`,
             }"
           ></span>
           <span class="reminder" v-if="role.firstNightReminder">
@@ -68,15 +61,7 @@
             class="icon"
             v-if="role.id"
             :style="{
-              backgroundImage: `url(${
-                role.image && grimoire.isImageOptIn
-                  ? role.image
-                  : require(
-                      '../../assets/icons/' +
-                        (role.imageAlt || role.id) +
-                        '.png',
-                    )
-              })`,
+              backgroundImage: `url(${getImage(role)})`,
             }"
           ></span>
           <span class="name">
@@ -169,10 +154,23 @@ export default {
       rolesOtherNight.sort((a, b) => a.otherNight - b.otherNight);
       return rolesOtherNight;
     },
-    ...mapState(["roles", "modals", "edition", "grimoire"]),
+    ...mapState(["roles", "modals", "edition", "grimoire", "session"]),
     ...mapState("players", ["players", "fabled"]),
   },
   methods: {
+    getImage(role) {
+      if (role.image && this.grimoire.isImageOptIn) {
+        if (role.image?.length) {
+          return role.image[0];
+        }
+
+        return role.image;
+      }
+
+      return require(
+        "../../assets/icons/" + (role.imageAlt || role.id) + ".png",
+      );
+    },
     ...mapMutations(["toggleModal"]),
   },
 };
@@ -196,6 +194,7 @@ h3 {
   svg {
     vertical-align: middle;
   }
+  line-height: 90%;
 }
 
 h4 {
