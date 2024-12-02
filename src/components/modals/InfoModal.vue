@@ -1,8 +1,6 @@
 <template>
   <Modal v-if="modals.info && availableRoles.length" @close="close">
-    <h3>
-      Choose a character
-    </h3>
+    <h3>Choose a character</h3>
     <ul class="tokens">
       <li
         v-for="role in availableRoles"
@@ -30,15 +28,15 @@ export default {
       const players = this.$store.state.players.players;
       const roles = this.$store.state.roles;
       const travel = this.$store.state.otherTravelers;
-      travel.forEach(role => {
-        if (players.some(player => player.role.id === role.id)) {
+      travel.forEach((role) => {
+        if (players.some((player) => player.role.id === role.id)) {
           availableRoles.push(role);
         }
       });
-      roles.forEach(role => {
+      roles.forEach((role) => {
         if (role.team !== "traveler") {
           availableRoles.push(role);
-        } else if (players.some(player => player.role.id === role.id)) {
+        } else if (players.some((player) => player.role.id === role.id)) {
           availableRoles.push(role);
         }
       });
@@ -47,11 +45,11 @@ export default {
       availableRoles.push({});
       return availableRoles;
     },
-    ...mapState(["modals"])
+    ...mapState(["modals"]),
   },
   data() {
     return {
-      tab: "editionRoles"
+      tab: "editionRoles",
     };
   },
   methods: {
@@ -62,8 +60,8 @@ export default {
     close() {
       this.toggleModal("info");
     },
-    ...mapMutations(["toggleModal"])
-  }
+    ...mapMutations(["toggleModal"]),
+  },
 };
 </script>
 
@@ -77,19 +75,29 @@ ul.tokens li {
   transition: transform 500ms ease;
 
   &.townsfolk {
-    box-shadow: 0 0 10px $townsfolk, 0 0 10px #004cff;
+    box-shadow:
+      0 0 10px $townsfolk,
+      0 0 10px #004cff;
   }
   &.outsider {
-    box-shadow: 0 0 10px $outsider, 0 0 10px $outsider;
+    box-shadow:
+      0 0 10px $outsider,
+      0 0 10px $outsider;
   }
   &.minion {
-    box-shadow: 0 0 10px $minion, 0 0 10px $minion;
+    box-shadow:
+      0 0 10px $minion,
+      0 0 10px $minion;
   }
   &.demon {
-    box-shadow: 0 0 10px $demon, 0 0 10px $demon;
+    box-shadow:
+      0 0 10px $demon,
+      0 0 10px $demon;
   }
   &.traveler {
-    box-shadow: 0 0 10px $traveler, 0 0 10px $traveler;
+    box-shadow:
+      0 0 10px $traveler,
+      0 0 10px $traveler;
   }
   &:hover {
     transform: scale(1.2);
