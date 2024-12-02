@@ -168,7 +168,7 @@ export default {
       }
 
       return require(
-        "../../assets/icons/" + (role.imageAlt || role.id) + ".png",
+        "../../assets/icons/" + (role.imageAlt || role.id) + ".webp",
       );
     },
     ...mapMutations(["toggleModal"]),

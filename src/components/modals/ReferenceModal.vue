@@ -56,7 +56,7 @@
             class="icon"
             :style="{
               backgroundImage: `url(${require(
-                '../../assets/icons/' + jinx.first.id + '.png',
+                '../../assets/icons/' + jinx.first.id + '.webp',
               )})`,
             }"
           ></span>
@@ -64,7 +64,7 @@
             class="icon"
             :style="{
               backgroundImage: `url(${require(
-                '../../assets/icons/' + jinx.second.id + '.png',
+                '../../assets/icons/' + jinx.second.id + '.webp',
               )})`,
             }"
           ></span>
@@ -149,7 +149,7 @@ export default {
       }
 
       return require(
-        "../../assets/icons/" + (role.imageAlt || role.id) + ".png",
+        "../../assets/icons/" + (role.imageAlt || role.id) + ".webp",
       );
     },
     ...mapMutations(["toggleModal"]),
